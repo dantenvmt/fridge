@@ -1,0 +1,6 @@
+TechStacks,Link
+"Flask, Pandas",https://github.com/dantenvmt/ISACA-2023
+"TensorFlow,TensorFlow Keras, Matplotlib",https://github.com/dantenvmt/farmville/
+"PRAW, Requests, NLTK (SentimentIntensityAnalyzer)",https://github.com/dantenvmt/Stock-Sentiment-Analysis
+"langchain, chromadb, llm, steamlit",https://github.com/dantenvmt/fridge
+"sklearn, numpy, pandas, matplotlib, seaborn",https://github.com/dantenvmt/Ad-Click-Prediction/blob/main/model/model.ipynb
