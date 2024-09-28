@@ -13,8 +13,8 @@ class Portfolio:
     def load_portfolio(self):
         if not self.collection.count():
             for _, row in self.data.iterrows():
-                self.collection.add(documents=row["Techstack"],
-                                    metadatas={"links": row["Links"]},
+                self.collection.add(documents=row["TechStacks"],
+                                    metadatas={"links": row["Link"]},
                                     ids=[str(uuid.uuid4())])
 
     def query_links(self, skills):
