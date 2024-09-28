@@ -7,7 +7,7 @@ from langchain_community.document_loaders import WebBaseLoader
 from chains import Chain
 from portfolio import Portfolio
 from utils import clean_text
-api_key = st.st.secrets['api_key']
+api_key = st.secrets['api_key']
 def create_streamlit_app(llm, portfolio, clean_text):
     st.title("Cold Email")
     url_input = st.text_input("Enter a URL:", value="")
