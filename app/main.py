@@ -27,7 +27,6 @@ def create_streamlit_app(llm, portfolio, clean_text):
     # Input fields
     url_input = st.text_input("Enter a URL for job scraping:", value="")
     uploaded_file = st.file_uploader("Upload your resume (PDF)", type="pdf")
-    link = st.text_input("Enter your portfolio link")
     submit_button = st.button("Generate Cold Email & Cover Letter")
 
     if submit_button and url_input and uploaded_file:
