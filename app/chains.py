@@ -5,28 +5,34 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.exceptions import OutputParserException
 from dotenv import load_dotenv
+import PyPDF2  # To read PDF from resume uploads
 
-
+# Load API keys and environment variables
 load_dotenv()
+
 class Chain:
     def __init__(self):
-        self.llm = ChatGroq(temperature=0, groq_api_key= st.secrets['api_key'], model_name="llama-3.1-70b-versatile")
+        # Initialize the LLM (ChatGroq with Llama 3.1)
+        self.llm = ChatGroq(temperature=0, groq_api_key=st.secrets['api_key'], model_name="llama-3.1-70b-versatile")
 
     def extract_jobs(self, cleaned_text):
+        # Define the prompt template for extracting job postings
         prompt_extract = PromptTemplate.from_template(
             """
-                ### SCRAPED TEXT FROM WEBSITE:
-                {page_data}
-                ### INSTRUCTION:
-                The scraped text is from the career's page of a website.
-                Your job is to extract the job postings and return them in JSON format containing the 
-                following keys: `role`, `experience`, `skills` and `description`. just give one role, and return a dict
-                Only return the valid JSON. 
-                ### VALID JSON (NO PREAMBLE):    
-             """
+            ### SCRAPED TEXT FROM WEBSITE:
+            {page_data}
+            ### INSTRUCTION:
+            The scraped text is from the careers page of a website.
+            Your job is to extract job postings and return them in JSON format containing the following keys: `role`, 
+            `experience`, `skills`, and `description`. Just give one role and return a dict.
+            Only return the valid JSON.
+            ### VALID JSON (NO PREAMBLE):    
+            """
         )
+        # Chain the prompt with the LLM
         chain_extract = prompt_extract | self.llm
         res = chain_extract.invoke(input={"page_data": cleaned_text})
+        
         try:
             json_parser = JsonOutputParser()
             res = json_parser.parse(res.content)
@@ -35,24 +41,54 @@ class Chain:
         return res if isinstance(res, list) else [res]
 
     def write_mail(self, job, links):
+        # Define the prompt template for generating cold email
         prompt_email = PromptTemplate.from_template(
             """
-            ### job description:
+            ### Job Description:
             {job_description}
-            ### instruction:
-
-            I am Thuan Nguyen, a Master of Science in Business Analytics student at Texas A&M University-Commerce with a 4.0 GPA, expected to graduate in June 2025. My work experience includes a Graduate Research Assistant role and a Data Scientist Intern position at FPT Software, where I worked on projects related to AI-powered web applications, cybersecurity threat detection, and stock sentiment analysis. My technical expertise includes Python, R, SQL, machine learning, and data analysis tools like Excel Solver and Langchain. 
-            I am looking to apply for a data science position. 
-            The job description highlights the need for skills that will be provided in my portfolio {link}
-            Please help me draft a cold email that highlights my skills, my project experience (such as cybersecurity detection and stock prediction projects), and my interest in the company, while requesting a conversation to discuss potential opportunities.
-
-            Do not provide a preamble.
+            ### Instruction:
+            I am Thuan Nguyen, a Master of Science in Business Analytics student at Texas A&M University with a 4.0 GPA,
+            expected to graduate in June 2025. My work experience includes a Graduate Research Assistant role and a Data 
+            Scientist Intern position at FPT Software. Please draft a personalized cold email using this job description 
+            and skills, and include my portfolio link: {link}.
             ### EMAIL (NO PREAMBLE):
             """
         )
+        # Chain the prompt with the LLM
         chain_email = prompt_email | self.llm
         res = chain_email.invoke({"job_description": str(job), "link": links})
         return res.content
+
+    def analyze_resume(self, resume_text, job_description, link):
+        # Define the prompt template for generating a cover letter from resume text
+        prompt_cover_letter = PromptTemplate.from_template(
+            """
+            ### Resume:
+            {resume_text}
+            ### Job Description:
+            {job_description}
+            ### Instruction:
+            Draft a personalized cover letter for a data science position based on the provided resume and job description.
+            The letter should highlight relevant skills and experiences. Include my portfolio link: {link}.
+            ### COVER LETTER (NO PREAMBLE):
+            """
+        )
+        # Chain the prompt with the LLM
+        chain_cover_letter = prompt_cover_letter | self.llm
+        res = chain_cover_letter.invoke({
+            "resume_text": resume_text, 
+            "job_description": job_description, 
+            "link": link
+        })
+        return res.content
+
+# Function to extract text from an uploaded PDF resume
+def extract_text_from_pdf(pdf_file):
+    pdf_reader = PyPDF2.PdfReader(pdf_file)
+    text = ""
+    for page_num in range(len(pdf_reader.pages)):
+        text += pdf_reader.pages[page_num].extract_text()
+    return text
 
 if __name__ == "__main__":
     print(os.getenv("api_key"))
