@@ -22,7 +22,7 @@ def extract_text_from_pdf(pdf_file):
 
 # Streamlit application creation
 def create_streamlit_app(llm, portfolio, clean_text):
-    st.title("Cold Email & Cover Letter Generator")
+    st.title("Cover Letter Generator")
 
     # Input fields
     url_input = st.text_input("Enter a URL for job scraping:", value="")
