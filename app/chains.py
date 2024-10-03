@@ -4,11 +4,7 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.exceptions import OutputParserException
-from dotenv import load_dotenv
 import PyPDF2  # To read PDF from resume uploads
-
-# Load API keys and environment variables
-load_dotenv()
 
 class Chain:
     def __init__(self):
@@ -93,4 +89,4 @@ def extract_text_from_pdf(pdf_file):
     return text
 
 if __name__ == "__main__":
-    print(os.getenv("api_key"))
+    
