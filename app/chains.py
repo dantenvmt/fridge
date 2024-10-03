@@ -47,9 +47,7 @@ class Chain:
             ### Job Description:
             {job_description}
             ### Instruction:
-            I am Thuan Nguyen, a Master of Science in Business Analytics student at Texas A&M University with a 4.0 GPA,
-            expected to graduate in June 2025. My work experience includes a Graduate Research Assistant role and a Data 
-            Scientist Intern position at FPT Software. Please draft a personalized cold email using this job description 
+            Please draft a personalized cold email using this job description 
             and skills, and include my portfolio link: {link}.
             ### EMAIL (NO PREAMBLE):
             """
@@ -72,7 +70,7 @@ class Chain:
             The format should be:
             in your cover letter you mentioned list the skills required by the company:{skill}
             then use keypoints mentioned in the resume to support your claim for each skill required by job description.
-            The letter should highlight relevant skills and experiences. Include my portfolio link: {link}.
+            The letter should highlight relevant skills and experiences. Include my portfolio link: {link} that is related to the skills mentioned in the job description
             ### COVER LETTER (NO PREAMBLE):
             """
         )
