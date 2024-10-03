@@ -79,7 +79,7 @@ class Chain:
         res = chain_cover_letter.invoke({
             "resume_text": resume_text, 
             "job_description": job_description, 
-            "link": link
+            "link": link,
             "skill": skill
         })
         return res.content
