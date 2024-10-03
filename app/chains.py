@@ -73,7 +73,7 @@ class Chain:
 
             For each listed skill, directly relate it to a specific and relevant experience from the resume, explaining how that experience demonstrates expertise in the required skill. Use concise, impactful sentences.
 
-            For any skill that aligns with a portfolio project mentioned in the resume, provide a one-sentence reference to the project and include the project link.
+            For any skill that aligns with a portfolio project mentioned in the resume, provide a one-sentence reference to the project and include the project link {link}.
 
             Structure each skill explanation as a bullet point for clarity.
 
