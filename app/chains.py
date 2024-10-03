@@ -70,7 +70,7 @@ class Chain:
             The format should be:
             in your cover letter you mentioned list the skills required by the company:{skill}
             then use keypoints mentioned in the resume to support your claim for each skill required by job description.
-            The letter should highlight relevant skills and experiences. Include my portfolio link: {link} that is related to the skills mentioned in the job description
+            The letter should highlight relevant skills and experiences. Include my portfolio {link} that is related to the skills mentioned for each skills in job description
             ### COVER LETTER (NO PREAMBLE):
             """
         )
