@@ -66,7 +66,7 @@ class Chain:
             The format should follow:
             talk about the company required {skill},
             then use summarized experience that is relevant to the requirements in the resume to support your claim for each skills required by job description, after each skill.  
-            only use each experience once.  
+            only use each experience once in the resume once
             Include one of my portfolio project {link} that is related to the skills mentioned for each skills if eligible in job description. 
             and lastly sign at the bottom with the name scraped from the resume
             Don't bold anything in the resume
