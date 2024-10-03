@@ -88,5 +88,3 @@ def extract_text_from_pdf(pdf_file):
         text += pdf_reader.pages[page_num].extract_text()
     return text
 
-if __name__ == "__main__":
-    
