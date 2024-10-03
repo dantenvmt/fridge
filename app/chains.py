@@ -64,9 +64,10 @@ class Chain:
             ### Instruction:
             Draft a personalized cover letter for a data science position based on the provided resume and job description.
             The format should be:
-            in your cover letter you mentioned list the skills required by the company:{skill}
+            in your job description you mentioned list the skills required by the company:{skill}
             then use keypoints mentioned in the resume to support your claim for each skill required by job description.
-            The letter should highlight relevant skills and experiences. Include my portfolio {link} that is related to the skills mentioned for each skills in job description
+            The letter should highlight relevant skills and experiences. 
+            Include one of my portfolio project {link} that is related to the skills mentioned for each skills if eligible in job description. 
             ### COVER LETTER (NO PREAMBLE):
             """
         )
