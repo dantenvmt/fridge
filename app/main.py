@@ -49,7 +49,7 @@ def create_streamlit_app(llm, portfolio, clean_text):
 
             # Generate cold email using the scraped job data
             st.write("Generating cold email...")
-            email = llm.write_mail(job, links)
+            email = llm.write_mail(job,resume_text, links)
             st.code(email, language='markdown')
 
             # Section 2: Generating cover letter using uploaded resume
