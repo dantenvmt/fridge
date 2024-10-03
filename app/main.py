@@ -46,7 +46,7 @@ def create_streamlit_app(llm, portfolio, clean_text):
             job = jobs[0]  # Using the first job extracted
             skills = job.get('skills', [])
             links = portfolio.query_links(skills)
-
+            resume_text = extract_text_from_pdf(uploaded_file)
             # Generate cold email using the scraped job data
             st.write("Generating cold email...")
             email = llm.write_mail(job,resume_text, links)
@@ -54,7 +54,7 @@ def create_streamlit_app(llm, portfolio, clean_text):
 
             # Section 2: Generating cover letter using uploaded resume
             st.write("Generating cover letter...")
-            resume_text = extract_text_from_pdf(uploaded_file)
+            
             job_description = job.get('description', 'No description available')
             cover_letter = llm.analyze_resume(resume_text, job_description, links, skills)
             st.code(cover_letter, language='markdown')
