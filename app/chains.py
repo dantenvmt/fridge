@@ -36,21 +36,26 @@ class Chain:
             raise OutputParserException("Context too big. Unable to parse jobs.")
         return res if isinstance(res, list) else [res]
 
-    def write_mail(self, job, links):
+    def write_mail(self, job, resume_text, links):
         # Define the prompt template for generating cold email
         prompt_email = PromptTemplate.from_template(
             """
             ### Job Description:
             {job_description}
+            ### Resume:
+            {resume_text}
+
             ### Instruction:
-            Please draft a personalized cold email using this job description 
-            and skills, and include my portfolio link: {link}.
+            Draft a tailored cold email that highlights my relevant skills and experience from resume, based on the provided job description. 
+            The email should open with a professional greeting and express genuine interest in the position, followed by a brief summary of how my background aligns with the job requirements. 
+            For each key skill mentioned in the job description, provide a specific example of my experience that demonstrates proficiency in that area. Where applicable, include a related portfolio project with a link: {link}. 
+            End with a polite call to action, expressing enthusiasm for further discussion and sign off with my name."
             ### EMAIL (NO PREAMBLE):
             """
         )
         # Chain the prompt with the LLM
         chain_email = prompt_email | self.llm
-        res = chain_email.invoke({"job_description": str(job), "link": links})
+        res = chain_email.invoke({"job_description": str(job), "link": links, "resume_text": resume_text})
         return res.content
 
     def analyze_resume(self, resume_text, job_description, link, skill):
@@ -64,15 +69,15 @@ class Chain:
             ### Instruction:
             "Draft a highly personalized cover letter for a data science position, tailored to both the provided resume and the job description. The cover letter should address the following:
 
-Begin by acknowledging the specific skills or qualifications required in the job description, using the format: 'In your job description, you mentioned the need for {skill}.'
+            Begin by acknowledging the specific skills or qualifications required in the job description, using the format: 'In your job description, you mentioned the need for {skill}.'
 
-For each listed skill, directly relate it to a specific and relevant experience from the resume, explaining how that experience demonstrates expertise in the required skill. Use concise, impactful sentences.
+            For each listed skill, directly relate it to a specific and relevant experience from the resume, explaining how that experience demonstrates expertise in the required skill. Use concise, impactful sentences.
 
-For any skill that aligns with a portfolio project mentioned in the resume, provide a one-sentence reference to the project and include the project link.
+            For any skill that aligns with a portfolio project mentioned in the resume, provide a one-sentence reference to the project and include the project link.
 
-Structure each skill explanation as a bullet point for clarity.
+            Structure each skill explanation as a bullet point for clarity.
 
-Conclude with a professional closing, signed with the applicant's name as scraped from the resume."
+            Conclude with a professional closing, signed with the applicant's name as scraped from the resume."
             ### COVER LETTER (NO PREAMBLE):
             """
         )
