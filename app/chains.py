@@ -57,7 +57,7 @@ class Chain:
         res = chain_email.invoke({"job_description": str(job), "link": links})
         return res.content
 
-    def analyze_resume(self, resume_text, job_description, link):
+    def analyze_resume(self, resume_text, job_description, link, skill):
         # Define the prompt template for generating a cover letter from resume text
         prompt_cover_letter = PromptTemplate.from_template(
             """
@@ -80,6 +80,7 @@ class Chain:
             "resume_text": resume_text, 
             "job_description": job_description, 
             "link": link
+            "skill": skill
         })
         return res.content
 
