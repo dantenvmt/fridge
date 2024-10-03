@@ -56,7 +56,7 @@ def create_streamlit_app(llm, portfolio, clean_text):
             st.write("Generating cover letter...")
             resume_text = extract_text_from_pdf(uploaded_file)
             job_description = job.get('description', 'No description available')
-            cover_letter = llm.analyze_resume(resume_text, job_description, link)
+            cover_letter = llm.analyze_resume(resume_text, job_description, links)
             st.code(cover_letter, language='markdown')
 
         except Exception as e:
