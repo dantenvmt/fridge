@@ -68,6 +68,7 @@ class Chain:
             then use keypoints mentioned in the resume to support your claim for each skill required by job description after each item in the list.
             The letter should highlight relevant skills and experiences. 
             Include one of my portfolio project {link} that is related to the skills mentioned for each skills if eligible in job description. 
+            and lastly sign at the bottom with the name scraped from the resume
             ### COVER LETTER (NO PREAMBLE):
             """
         )
