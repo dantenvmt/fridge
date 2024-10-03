@@ -66,7 +66,7 @@ class Chain:
             The format should follow:
             Your job description mentioned that you required: talk about the company required {skill}
             then use personalized experience that is relevant to the requirements in the resume to support your claim for each skills required by job description, after each skill.
-            Include one of my portfolio project {link} that is related to the skills mentioned for each skills in job description if it's mentioned in the resume. 
+            Include one of my portfolio project {link} that is related to the skills mentioned for each skills in job description if it's mentioned in the resume. keep it short.
             and lastly sign at the bottom with the name scraped from the resume
             ### COVER LETTER (NO PREAMBLE):
             """
