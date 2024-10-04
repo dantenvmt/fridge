@@ -4,15 +4,14 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.exceptions import OutputParserException
-import PyPDF2  # To read PDF from resume uploads
+import PyPDF2
 
 class Chain:
     def __init__(self):
-        # Initialize the LLM (ChatGroq with Llama 3.1)
         self.llm = ChatGroq(temperature=0, groq_api_key=st.secrets['api_key'], model_name="llama-3.1-70b-versatile")
 
     def extract_jobs(self, cleaned_text):
-        # Define the prompt template for extracting job postings
+        #extracting job postings
         prompt_extract = PromptTemplate.from_template(
             """
             ### SCRAPED TEXT FROM WEBSITE:
@@ -37,7 +36,7 @@ class Chain:
         return res if isinstance(res, list) else [res]
 
     def write_mail(self, job, resume_text, links):
-        # Define the prompt template for generating cold email
+        #generating cold email
         prompt_email = PromptTemplate.from_template(
             """
             ### Job Description:
@@ -53,13 +52,12 @@ class Chain:
             ### EMAIL (NO PREAMBLE):
             """
         )
-        # Chain the prompt with the LLM
         chain_email = prompt_email | self.llm
         res = chain_email.invoke({"job_description": str(job), "link": links, "resume_text": resume_text})
         return res.content
 
     def analyze_resume(self, resume_text, job_description, link, skill):
-        # Define the prompt template for generating a cover letter from resume text
+        #generating a cover letter from resume text
         prompt_cover_letter = PromptTemplate.from_template(
             """
             ### Resume:
@@ -81,7 +79,7 @@ class Chain:
             ### COVER LETTER (NO PREAMBLE):
             """
         )
-        # Chain the prompt with the LLM
+
         chain_cover_letter = prompt_cover_letter | self.llm
         res = chain_cover_letter.invoke({
             "resume_text": resume_text, 
